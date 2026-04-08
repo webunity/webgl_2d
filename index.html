@@ -29,11 +29,12 @@
       position: fixed;
       top: 0;
       left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #unity-canvas {
-      width: 100%;
-      height: 100%;
       display: block;
       background: #000;
       outline: none;
@@ -140,30 +141,10 @@
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     var loadingText = document.querySelector("#unity-loading-text");
 
-    // Handle responsive resize — lock to 16:9 aspect ratio
-    var TARGET_RATIO = 16 / 9;
-
+    // Handle responsive resize — fill full screen on all devices
     function resizeCanvas() {
-      var w = window.innerWidth;
-      var h = window.innerHeight;
-      var windowRatio = w / h;
-
-      var canvasW, canvasH;
-      if (windowRatio > TARGET_RATIO) {
-        // window is wider than 16:9 → pillarbox (black bars on sides)
-        canvasH = h;
-        canvasW = Math.floor(h * TARGET_RATIO);
-      } else {
-        // window is taller than 16:9 → letterbox (black bars top/bottom)
-        canvasW = w;
-        canvasH = Math.floor(w / TARGET_RATIO);
-      }
-
-      canvas.style.width = canvasW + "px";
-      canvas.style.height = canvasH + "px";
-      canvas.style.position = "absolute";
-      canvas.style.left = Math.floor((w - canvasW) / 2) + "px";
-      canvas.style.top = Math.floor((h - canvasH) / 2) + "px";
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
     }
 
     window.addEventListener("resize", resizeCanvas);
